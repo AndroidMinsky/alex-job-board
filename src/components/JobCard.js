@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { COLORS } from "../css/colors";
 
 const Wrapper = styled.div`
-  margin: 30px;
-  padding: 15px;
-  background-color: #fff;
+  margin: 3rem;
+  padding: 1.5rem;
+  background-color: ${COLORS.white};
   border-radius: 5px;
-  box-shadow: 5px 15px 30px -15px rgba(91, 164, 164, 0.5);
-  border-left: 4px solid #5aa6a2;
+  box-shadow: 5px 15px 30px -15px ${COLORS.darkCyanOpacity};
+  border-left: 4px solid ${COLORS.darkCyan};
 `;
 
 export default function JobCard() {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import JobCard from "./JobCard";
 
 const Wrapper = styled.div`
-  max-width: 980px;
+  max-width: 70rem;
   margin: auto;
 `;
 
