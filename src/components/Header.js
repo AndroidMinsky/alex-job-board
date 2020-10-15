@@ -10,6 +10,4 @@ const AppHeader = styled.header`
   background-position: center;
 `;
 
-export default function Header() {
-  return <AppHeader />;
-}
+export default AppHeader;
