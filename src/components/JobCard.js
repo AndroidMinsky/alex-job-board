@@ -1,12 +1,12 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import { COLORS } from "../css/colors";
+import { devices } from "../css/devices";
 import Photosnap from "../img/photosnap.svg";
 
 const Card = styled.div`
-  margin: 1.5rem;
+  margin: 2rem;
   margin-top: 4rem;
-  padding: 2rem;
   background-color: ${COLORS.white};
   border-radius: 5px;
   box-shadow: 5px 15px 30px -15px ${COLORS.darkCyanOpacity};
@@ -14,78 +14,66 @@ const Card = styled.div`
 `;
 
 const GridContainer = styled.div`
+  padding: 2rem;
   display: grid;
-  grid-template-columns: max-content auto;
-  align-items: center;
-  column-gap: 1.5rem;
+  grid-template-columns: 1fr;
 
-  @media (max-width: 665px) {
-    grid-template-columns: 1fr;
+  @media ${devices.tablet} {
+    grid-template-columns: min-content max-content auto;
+    align-items: center;
+    column-gap: 2.5rem;
   }
 `;
 
-const Info = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const LogoSection = styled.div``;
 
 const Logo = styled.img`
-  margin-right: 1.5rem;
-  width: 6rem;
-  height: 100%;
+  margin: -4rem 0 1rem 0;
+  width: 5rem;
+  height: 5rem;
 
-  @media (max-width: 665px) {
-    width: 3.5rem;
-    height: 3.5rem;
-    // margin-top: -13rem;
-    position: absolute;
-    top: 12rem;
-    left: 3rem;
+  @media ${devices.tablet} {
+    margin: 1rem 0 1rem 1rem;
+    width: 9rem;
+    height: 9rem;
   }
 `;
 
-const MainInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const MainInfo = styled.div``;
 
 const CompanyNameSection = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const CompanyName = styled.h2`
-  margin: 0;
-  margin-right: 0.8rem;
+const CompanyName = styled.p`
+  margin-right: 1.5rem;
   color: ${COLORS.darkCyan};
+  font-size: 1.5rem;
+  font-weight: 700;
 `;
 
 const Tags = styled.div`
   display: flex;
-  align-items: center;
 `;
 
-const Tag = styled.h2`
-  margin: 0;
-  margin-right: 0.5rem;
-  font-size: 0.7rem;
-  padding: 0.4rem;
+const Tag = styled.div`
+  margin-right: 0.8rem;
+  padding: .7rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
   color: ${COLORS.white}};
-  background-color: ${(props) => props.theme.main};
-  border-radius: 1rem;
+  background-color: ${(props) => props.backgroundColor};
+  border-radius: 2rem;
+  height: 3rem;
+  line-height: 2rem;
 `;
 
-Tag.defaultProps = {
-  theme: {
-    main: COLORS.darkCyan,
-  },
-};
-
-const theme = {
-  main: COLORS.veryDarkGrayishCyan,
-};
-
-const Title = styled.h1`
+const Title = styled.p`
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 1.5rem 0 2rem 0;
   &:hover {
     color: ${COLORS.darkCyan};
     cursor: pointer;
@@ -94,8 +82,7 @@ const Title = styled.h1`
 `;
 
 const MiscInfo = styled.p`
-  margin: 0;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: ${COLORS.darkGrayishCyan};
 `;
 
@@ -104,15 +91,28 @@ const Dot = styled.span`
     content: "•";
   }
   margin: 0 0.5rem;
+  font-size: 1.5rem;
+`;
+
+const Divider = styled.hr`
+  border: none;
+  border-top: 1px solid ${COLORS.gray};
+  margin-top: 1.8rem;
+
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 const Categories = styled.div`
-  justify-self: end;
+  @media ${devices.tablet} {
+    justify-self: end;
+  }
 `;
 
-const Category = styled.button`
+const Category = styled.div`
   &:not(:last-child) {
-    margin-right: 0.8rem;
+    margin-right: 1.5rem;
   }
 
   &:active {
@@ -124,43 +124,49 @@ const Category = styled.button`
     color: ${COLORS.lightGrayishCyan};
   }
 
-  border: none;
-  outline: none;
-  text-decoration: none;
   display: inline-block;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 1.7rem 1rem;
+  margin-top: 1.5rem;
+  border-radius: 4px;
   font-weight: 700;
   color: ${COLORS.darkCyan};
   background: ${COLORS.lightGrayishCyan};
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  height: 1rem;
+  line-height: 0.3rem;
+
+  @media ${devices.tablet} {
+    &:not(:last-child) {
+      margin-right: 0.8rem;
+    }
+
+    margin: 0.8rem;
+  }
 `;
 
 export default function JobCard() {
   return (
     <Card>
       <GridContainer>
-        <Info>
+        <LogoSection>
           <Logo src={Photosnap} />
-          <MainInfo>
-            <CompanyNameSection>
-              <CompanyName>Photosnap </CompanyName>
-              <Tags>
-                <Tag>NEW!</Tag>
-                <ThemeProvider theme={theme}>
-                  <Tag>FEATURED</Tag>
-                </ThemeProvider>
-              </Tags>
-            </CompanyNameSection>
-            <Title>Senior Frontend Developer</Title>
-            <MiscInfo>
-              1d ago <Dot /> Full Time <Dot /> USA only
-            </MiscInfo>
-          </MainInfo>
-        </Info>
+        </LogoSection>
+        <MainInfo>
+          <CompanyNameSection>
+            <CompanyName>Photosnap </CompanyName>
+            <Tags>
+              <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
+              <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
+            </Tags>
+          </CompanyNameSection>
+          <Title>Senior Frontend Developer</Title>
+          <MiscInfo>
+            1d ago <Dot /> Full Time <Dot /> USA only
+          </MiscInfo>
+          <Divider />
+        </MainInfo>
         <Categories>
           <Category>Frontend</Category>
           <Category>Senior</Category>
