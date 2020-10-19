@@ -5,16 +5,19 @@ import { devices } from "../css/devices";
 import Photosnap from "../img/photosnap.svg";
 
 const Card = styled.div`
-  margin: 2rem;
-  margin-top: 4rem;
+  margin: 0 2rem 4rem 2rem;
   background-color: ${COLORS.white};
   border-radius: 5px;
   box-shadow: 5px 15px 30px -15px ${COLORS.darkCyanOpacity};
-  border-left: 4px solid ${COLORS.darkCyan};
+  border-left: 5px solid ${COLORS.darkCyan};
+
+  @media ${devices.tablet} {
+    margin: 0 2rem 3rem 2rem;
+  }
 `;
 
 const GridContainer = styled.div`
-  padding: 2rem;
+  padding: 3rem;
   display: grid;
   grid-template-columns: 1fr;
 
@@ -28,14 +31,14 @@ const GridContainer = styled.div`
 const LogoSection = styled.div``;
 
 const Logo = styled.img`
-  margin: -4rem 0 1rem 0;
+  margin: -4.5rem 0 1rem 0;
   width: 5rem;
   height: 5rem;
 
   @media ${devices.tablet} {
-    margin: 1rem 0 1rem 1rem;
-    width: 9rem;
-    height: 9rem;
+    margin: 0.8rem;
+    width: 10rem;
+    height: 10rem;
   }
 `;
 
@@ -125,7 +128,7 @@ const Category = styled.div`
   }
 
   display: inline-block;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   padding: 1.7rem 1rem;
   margin-top: 1.5rem;
   border-radius: 4px;
@@ -143,38 +146,70 @@ const Category = styled.div`
     }
 
     margin: 0.8rem;
+    font-size: 1.5rem;
   }
 `;
 
 export default function JobCard() {
   return (
-    <Card>
-      <GridContainer>
-        <LogoSection>
-          <Logo src={Photosnap} />
-        </LogoSection>
-        <MainInfo>
-          <CompanyNameSection>
-            <CompanyName>Photosnap </CompanyName>
-            <Tags>
-              <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
-              <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
-            </Tags>
-          </CompanyNameSection>
-          <Title>Senior Frontend Developer</Title>
-          <MiscInfo>
-            1d ago <Dot /> Full Time <Dot /> USA only
-          </MiscInfo>
-          <Divider />
-        </MainInfo>
-        <Categories>
-          <Category>Frontend</Category>
-          <Category>Senior</Category>
-          <Category>HTML</Category>
-          <Category>CSS</Category>
-          <Category>JavaScript</Category>
-        </Categories>
-      </GridContainer>
-    </Card>
+    <>
+      <Card>
+        <GridContainer>
+          <LogoSection>
+            <Logo src={Photosnap} />
+          </LogoSection>
+          <MainInfo>
+            <CompanyNameSection>
+              <CompanyName>Photosnap </CompanyName>
+              <Tags>
+                <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
+                <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
+              </Tags>
+            </CompanyNameSection>
+            <Title>Senior Frontend Developer</Title>
+            <MiscInfo>
+              1d ago <Dot /> Full Time <Dot /> USA only
+            </MiscInfo>
+            <Divider />
+          </MainInfo>
+          <Categories>
+            <Category>Frontend</Category>
+            <Category>Senior</Category>
+            <Category>HTML</Category>
+            <Category>CSS</Category>
+            <Category>JavaScript</Category>
+          </Categories>
+        </GridContainer>
+      </Card>
+
+      <Card>
+        <GridContainer>
+          <LogoSection>
+            <Logo src={Photosnap} />
+          </LogoSection>
+          <MainInfo>
+            <CompanyNameSection>
+              <CompanyName>Photosnap </CompanyName>
+              <Tags>
+                <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
+                <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
+              </Tags>
+            </CompanyNameSection>
+            <Title>Senior Frontend Developer</Title>
+            <MiscInfo>
+              1d ago <Dot /> Full Time <Dot /> USA only
+            </MiscInfo>
+            <Divider />
+          </MainInfo>
+          <Categories>
+            <Category>Frontend</Category>
+            <Category>Senior</Category>
+            <Category>HTML</Category>
+            <Category>CSS</Category>
+            <Category>JavaScript</Category>
+          </Categories>
+        </GridContainer>
+      </Card>
+    </>
   );
 }
