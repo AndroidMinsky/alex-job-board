@@ -4,7 +4,7 @@ import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
 import Photosnap from "../img/photosnap.svg";
 
-const Card = styled.div`
+const Card = styled.li`
   margin: 0 2rem 4rem 2rem;
   background-color: ${COLORS.white};
   border-radius: 5px;
@@ -17,7 +17,7 @@ const Card = styled.div`
 `;
 
 const GridContainer = styled.div`
-  padding: 3rem;
+  padding: 2rem;
   display: grid;
   grid-template-columns: 1fr;
 
@@ -25,6 +25,7 @@ const GridContainer = styled.div`
     grid-template-columns: min-content max-content auto;
     align-items: center;
     column-gap: 2.5rem;
+    padding: 3rem;
   }
 `;
 
@@ -152,7 +153,7 @@ const Category = styled.div`
 
 export default function JobCard() {
   return (
-    <>
+    <ul style={{ listStyleType: "none" }}>
       <Card>
         <GridContainer>
           <LogoSection>
@@ -210,6 +211,6 @@ export default function JobCard() {
           </Categories>
         </GridContainer>
       </Card>
-    </>
+    </ul>
   );
 }
