@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import JobCard from "./JobCard";
-import JobFilter from "./JobFilter";
 import JobTags from "./JobTags";
 
 const Wrapper = styled.div`
@@ -12,7 +11,6 @@ const Wrapper = styled.div`
 export default function JobsList() {
   return (
     <Wrapper>
-      {/* <JobFilter /> */}
       <JobTags />
       <JobCard />
     </Wrapper>

@@ -161,7 +161,7 @@ export default function JobCard() {
           </LogoSection>
           <MainInfo>
             <CompanyNameSection>
-              <CompanyName>Photosnap </CompanyName>
+              <CompanyName>Photosnap</CompanyName>
               <Tags>
                 <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
                 <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
