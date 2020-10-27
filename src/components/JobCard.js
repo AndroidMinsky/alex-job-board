@@ -151,63 +151,41 @@ const Category = styled.div`
   }
 `;
 
-export default function JobCard() {
+export default function JobCard({ job, props }) {
   return (
     <ul style={{ listStyleType: "none" }}>
-      <Card>
+      <Card style={!job.featured ? { borderLeft: "5px solid #fff" } : {}}>
         <GridContainer>
           <LogoSection>
             <Logo src={Photosnap} />
           </LogoSection>
           <MainInfo>
             <CompanyNameSection>
-              <CompanyName>Photosnap</CompanyName>
+              <CompanyName>{job.company}</CompanyName>
               <Tags>
-                <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
-                <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
+                {job.new && <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>}
+                {job.featured && (
+                  <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>
+                    Featured
+                  </Tag>
+                )}
               </Tags>
             </CompanyNameSection>
-            <Title>Senior Frontend Developer</Title>
+            <Title>{job.position}</Title>
             <MiscInfo>
-              1d ago <Dot /> Full Time <Dot /> USA only
+              {job.postedAt} <Dot /> {job.contract} <Dot /> {job.location}
             </MiscInfo>
             <Divider />
           </MainInfo>
           <Categories>
-            <Category>Frontend</Category>
-            <Category>Senior</Category>
-            <Category>HTML</Category>
-            <Category>CSS</Category>
-            <Category>JavaScript</Category>
-          </Categories>
-        </GridContainer>
-      </Card>
-
-      <Card>
-        <GridContainer>
-          <LogoSection>
-            <Logo src={Photosnap} />
-          </LogoSection>
-          <MainInfo>
-            <CompanyNameSection>
-              <CompanyName>Photosnap </CompanyName>
-              <Tags>
-                <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
-                <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
-              </Tags>
-            </CompanyNameSection>
-            <Title>Senior Frontend Developer</Title>
-            <MiscInfo>
-              1d ago <Dot /> Full Time <Dot /> USA only
-            </MiscInfo>
-            <Divider />
-          </MainInfo>
-          <Categories>
-            <Category>Frontend</Category>
-            <Category>Senior</Category>
-            <Category>HTML</Category>
-            <Category>CSS</Category>
-            <Category>JavaScript</Category>
+            <Category>{job.role}</Category>
+            <Category>{job.level}</Category>
+            {job.languages.map((language) => (
+              <Category key={language}>{language}</Category>
+            ))}
+            {job.tools.map((tool) => (
+              <Category key={tool}>{tool}</Category>
+            ))}
           </Categories>
         </GridContainer>
       </Card>

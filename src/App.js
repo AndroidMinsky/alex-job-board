@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Header from "./components/Header";
 import JobsList from "./components/JobsList";
 import GlobalStyles from "./css/globalStyles";
+import { ReactQueryDevtools } from "react-query-devtools";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <GlobalStyles />
       <Header />
       <JobsList />
+      <ReactQueryDevtools panelProps={{ style: { fontSize: "10rem" } }} />
     </Fragment>
   );
 }
