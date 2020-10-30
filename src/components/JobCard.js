@@ -9,8 +9,8 @@ const Card = styled.li`
   background-color: ${COLORS.white};
   border-radius: 5px;
   box-shadow: 5px 15px 30px -15px ${COLORS.darkCyanOpacity};
-  border-left: 5px solid ${COLORS.darkCyan};
-
+  border-left: ${(props) =>
+    props.featured ? `5px solid ${COLORS.darkCyan}` : "5px solid #fff"};
   @media ${devices.tablet} {
     margin: 0 2rem 3rem 2rem;
   }
@@ -151,10 +151,17 @@ const Category = styled.div`
   }
 `;
 
-export default function JobCard({ job, props }) {
+export default function JobCard({ job, updateFilters, filters }) {
+  function addCategory(name) {
+    if (filters.includes(name)) {
+      return;
+    }
+    updateFilters([...filters, name]);
+  }
+
   return (
     <ul style={{ listStyleType: "none" }}>
-      <Card style={!job.featured ? { borderLeft: "5px solid #fff" } : {}}>
+      <Card featured={job.featured}>
         <GridContainer>
           <LogoSection>
             <Logo src={Photosnap} />
@@ -181,7 +188,9 @@ export default function JobCard({ job, props }) {
             <Category>{job.role}</Category>
             <Category>{job.level}</Category>
             {job.languages.map((language) => (
-              <Category key={language}>{language}</Category>
+              <Category onClick={() => addCategory(language)} key={language}>
+                {language}
+              </Category>
             ))}
             {job.tools.map((tool) => (
               <Category key={tool}>{tool}</Category>

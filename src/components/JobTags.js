@@ -137,16 +137,17 @@ const baseTagifySettings = {
   },
 };
 
-export default function JobTags() {
+export default function JobTags({ filters, updateFilters }) {
   const tagifyRef = useRef();
 
   const settings = {
     ...baseTagifySettings,
   };
 
-  const clearAll = () => {
-    tagifyRef.current && tagifyRef.current.removeAllTags();
-  };
+  function clearAll() {
+    // tagifyRef.current && tagifyRef.current.removeAllTags();
+    updateFilters([]);
+  }
 
   return (
     <Filter>
@@ -154,7 +155,7 @@ export default function JobTags() {
         <StyledTags
           tagifyRef={tagifyRef}
           settings={settings}
-          value="Frontend, CSS, JavaScript"
+          value={filters}
           onChange={(e) => (
             e.persist(), console.log("CHANGED:", e.target.value)
           )}

@@ -10,7 +10,9 @@ function App() {
       <GlobalStyles />
       <Header />
       <JobsList />
-      <ReactQueryDevtools panelProps={{ style: { fontSize: "10rem" } }} />
+      {process.env.NODE_ENV === "development" && (
+        <ReactQueryDevtools panelProps={{ style: { fontSize: "10rem" } }} />
+      )}
     </Fragment>
   );
 }

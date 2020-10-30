@@ -17,14 +17,22 @@ const fetchJobs = (key) => {
 
 export default function JobsList() {
   const { isLoading, error, status, data } = useQuery("jobs", fetchJobs);
+  const [filters, setFilters] = useState([]);
 
   return (
     <Wrapper>
-      <JobTags />
+      <JobTags filters={filters} updateFilters={setFilters} />
       {isLoading && "Loading..."}
       {error && "Something went wrong..."}
       {status === "success" &&
-        data.map((job) => <JobCard key={job.id} job={job} />)}
+        data.map((job) => (
+          <JobCard
+            key={job.id}
+            job={job}
+            updateFilters={setFilters}
+            filters={filters}
+          />
+        ))}
     </Wrapper>
   );
 }
