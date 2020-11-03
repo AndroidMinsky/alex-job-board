@@ -4,6 +4,57 @@ import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
 import Photosnap from "../img/photosnap.svg";
 
+export default function JobCard({ job, filters, updateFilters }) {
+  const addCategory = (name) => {
+    const newArr = filters.map((tag) => tag.toLowerCase());
+    if (!newArr.includes(name.toLowerCase())) {
+      updateFilters([...filters, name]);
+    }
+  };
+
+  return (
+    <ul style={{ listStyleType: "none" }}>
+      <Card featured={job.featured}>
+        <GridContainer>
+          <LogoSection>
+            <Logo src={Photosnap} />
+          </LogoSection>
+          <MainInfo>
+            <CompanyNameSection>
+              <CompanyName>{job.company}</CompanyName>
+              <Tags>
+                {job.new && <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>}
+                {job.featured && (
+                  <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>
+                    Featured
+                  </Tag>
+                )}
+              </Tags>
+            </CompanyNameSection>
+            <Title>{job.position}</Title>
+            <MiscInfo>
+              {job.postedAt} <Dot /> {job.contract} <Dot /> {job.location}
+            </MiscInfo>
+            <Divider />
+          </MainInfo>
+          <Categories>
+            <Category>{job.role}</Category>
+            <Category>{job.level}</Category>
+            {job.languages.map((language) => (
+              <Category key={language} onClick={() => addCategory(language)}>
+                {language}
+              </Category>
+            ))}
+            {job.tools.map((tool) => (
+              <Category key={tool}>{tool}</Category>
+            ))}
+          </Categories>
+        </GridContainer>
+      </Card>
+    </ul>
+  );
+}
+
 const Card = styled.li`
   margin: 0 2rem 4rem 2rem;
   background-color: ${COLORS.white};
@@ -150,54 +201,3 @@ const Category = styled.div`
     font-size: 1.5rem;
   }
 `;
-
-export default function JobCard({ job, updateFilters, filters }) {
-  function addCategory(name) {
-    if (filters.includes(name)) {
-      return;
-    }
-    updateFilters([...filters, name]);
-  }
-
-  return (
-    <ul style={{ listStyleType: "none" }}>
-      <Card featured={job.featured}>
-        <GridContainer>
-          <LogoSection>
-            <Logo src={Photosnap} />
-          </LogoSection>
-          <MainInfo>
-            <CompanyNameSection>
-              <CompanyName>{job.company}</CompanyName>
-              <Tags>
-                {job.new && <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>}
-                {job.featured && (
-                  <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>
-                    Featured
-                  </Tag>
-                )}
-              </Tags>
-            </CompanyNameSection>
-            <Title>{job.position}</Title>
-            <MiscInfo>
-              {job.postedAt} <Dot /> {job.contract} <Dot /> {job.location}
-            </MiscInfo>
-            <Divider />
-          </MainInfo>
-          <Categories>
-            <Category>{job.role}</Category>
-            <Category>{job.level}</Category>
-            {job.languages.map((language) => (
-              <Category onClick={() => addCategory(language)} key={language}>
-                {language}
-              </Category>
-            ))}
-            {job.tools.map((tool) => (
-              <Category key={tool}>{tool}</Category>
-            ))}
-          </Categories>
-        </GridContainer>
-      </Card>
-    </ul>
-  );
-}

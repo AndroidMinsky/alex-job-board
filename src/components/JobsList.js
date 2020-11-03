@@ -1,29 +1,31 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import JobCard from "./JobCard";
-import JobTags from "./JobTags";
+import Tags from "./Tags";
+import Spinner from "./Spinner";
+import Error from "./Error";
 import { useQuery } from "react-query";
 
-const Wrapper = styled.div`
-  max-width: 120rem;
-  margin: auto;
-`;
-
-const fetchJobs = (key) => {
-  return fetch("https://gentle-brook-20502.herokuapp.com/jobs").then((res) =>
-    res.json()
-  );
+const fetchJobs = (key, filters) => {
+  const values = filters.map((value) => value).join(",");
+  return fetch(
+    `https://gentle-brook-20502.herokuapp.com/jobs?q=${values}`
+  ).then((res) => res.json());
 };
 
 export default function JobsList() {
-  const { isLoading, error, status, data } = useQuery("jobs", fetchJobs);
   const [filters, setFilters] = useState([]);
+
+  const { isLoading, error, status, data } = useQuery(
+    ["jobs", filters],
+    fetchJobs
+  );
 
   return (
     <Wrapper>
-      <JobTags filters={filters} updateFilters={setFilters} />
-      {isLoading && "Loading..."}
-      {error && "Something went wrong..."}
+      <Tags filters={filters} updateFilters={setFilters} />
+      {isLoading && !error && <Spinner />}
+      {error && <Error />}
       {status === "success" &&
         data.map((job) => (
           <JobCard
@@ -36,3 +38,8 @@ export default function JobsList() {
     </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  max-width: 120rem;
+  margin: auto;
+`;
