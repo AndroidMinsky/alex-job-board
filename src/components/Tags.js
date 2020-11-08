@@ -5,39 +5,27 @@ import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
 import { ReactComponent as RemoveIcon } from "../img/icon-remove.svg";
 
-export default function Tags({ filters, updateFilters }) {
+export default function Tags({ filters, addFilter, setFilters }) {
   const inputRef = useRef();
 
   useClickAway(inputRef, () => {
-    if (inputRef.current.value.trim()) {
-      const newArr = filters.map((tag) => tag.toLowerCase());
-      if (!newArr.includes(inputRef.current.value.toLowerCase())) {
-        updateFilters([...filters, inputRef.current.value]);
-        inputRef.current.value = "";
-      } else {
-        inputRef.current.value = "";
-      }
-    }
+    addFilter(inputRef.current.value);
+    inputRef.current.value = "";
   });
 
-  const removeTag = (tagName) => {
-    updateFilters(filters.filter((tag) => tag !== tagName));
+  const addTag = (e) => {
+    if (e.key === "Enter") {
+      addFilter(e.target.value);
+      e.target.value = "";
+    }
   };
 
-  const addTag = (e) => {
-    if (e.target.value.trim() && e.key === "Enter") {
-      const newArr = filters.map((tag) => tag.toLowerCase());
-      if (!newArr.includes(e.target.value.toLowerCase())) {
-        updateFilters([...filters, e.target.value]);
-        e.target.value = "";
-      } else {
-        e.target.value = "";
-      }
-    }
+  const removeTag = (tagName) => {
+    setFilters(filters.filter((tag) => tag !== tagName));
   };
 
   const clearTags = () => {
-    updateFilters([]);
+    setFilters([]);
   };
 
   return (
@@ -144,6 +132,7 @@ const Category = styled.div`
 
 const Input = styled.input`
   font-size: 1.3rem;
+  font-family: inherit;
   height: 100%;
   border: 1px solid ${COLORS.gray};
   border-radius: 4px;
@@ -153,12 +142,20 @@ const Input = styled.input`
   margin: 0.8rem;
   flex-grow: 1;
 
+  &::placeholder {
+    transform: translate3d(0, 2px, 0);
+  }
+
   @media ${devices.tablet} {
     font-size: 1.5rem;
   }
 
   &:focus {
     outline: none;
+
+    &::placeholder {
+      color: #ccc;
+    }
   }
 `;
 

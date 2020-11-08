@@ -42,10 +42,17 @@ const TextArea = styled.p`
   }
 `;
 
-const Reload = styled.span`
-  // color: ${COLORS.darkGrayishCyan};
+const Reload = styled.button`
+  justify-content: center;
   font-size: 1.3rem;
   font-weight: 700;
+  border: none;
+  border: none;
+  background: none;
+  text-decoration: none;
+  font-family: inherit;
+  color: #fff;
+  padding: 0;
 
   &:hover {
     text-decoration: underline;

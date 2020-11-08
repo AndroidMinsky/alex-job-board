@@ -5,6 +5,7 @@ import Tags from "./Tags";
 import Spinner from "./Spinner";
 import Error from "./Error";
 import { useQuery } from "react-query";
+import useFilters from "./useFilters";
 
 const fetchJobs = (key, filters) => {
   const values = filters.map((value) => value).join(",");
@@ -14,7 +15,7 @@ const fetchJobs = (key, filters) => {
 };
 
 export default function JobsList() {
-  const [filters, setFilters] = useState([]);
+  const { filters, setFilters, addFilter } = useFilters();
 
   const { isLoading, error, status, data } = useQuery(
     ["jobs", filters],
@@ -23,17 +24,12 @@ export default function JobsList() {
 
   return (
     <Wrapper>
-      <Tags filters={filters} updateFilters={setFilters} />
+      <Tags filters={filters} addFilter={addFilter} setFilters={setFilters} />
       {isLoading && !error && <Spinner />}
       {error && <Error />}
       {status === "success" &&
         data.map((job) => (
-          <JobCard
-            key={job.id}
-            job={job}
-            updateFilters={setFilters}
-            filters={filters}
-          />
+          <JobCard key={job.id} job={job} updateFilters={addFilter} />
         ))}
     </Wrapper>
   );

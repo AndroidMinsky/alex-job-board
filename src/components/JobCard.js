@@ -4,14 +4,7 @@ import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
 import Photosnap from "../img/photosnap.svg";
 
-export default function JobCard({ job, filters, updateFilters }) {
-  const addCategory = (name) => {
-    const newArr = filters.map((tag) => tag.toLowerCase());
-    if (!newArr.includes(name.toLowerCase())) {
-      updateFilters([...filters, name]);
-    }
-  };
-
+export default function JobCard({ job, updateFilters }) {
   return (
     <ul style={{ listStyleType: "none" }}>
       <Card featured={job.featured}>
@@ -41,7 +34,7 @@ export default function JobCard({ job, filters, updateFilters }) {
             <Category>{job.role}</Category>
             <Category>{job.level}</Category>
             {job.languages.map((language) => (
-              <Category key={language} onClick={() => addCategory(language)}>
+              <Category key={language} onClick={() => updateFilters(language)}>
                 {language}
               </Category>
             ))}
