@@ -4,7 +4,7 @@ import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
 import Photosnap from "../img/photosnap.svg";
 
-export default function JobCard({ job, updateFilters }) {
+export default function JobCard({ job, addFilter }) {
   return (
     <ul style={{ listStyleType: "none" }}>
       <Card featured={job.featured}>
@@ -34,7 +34,7 @@ export default function JobCard({ job, updateFilters }) {
             <Category>{job.role}</Category>
             <Category>{job.level}</Category>
             {job.languages.map((language) => (
-              <Category key={language} onClick={() => updateFilters(language)}>
+              <Category key={language} onClick={() => addFilter(language)}>
                 {language}
               </Category>
             ))}

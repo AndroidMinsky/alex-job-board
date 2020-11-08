@@ -12,5 +12,9 @@ export default function useFilters() {
     }
   };
 
-  return { filters, setFilters, addFilter };
+  const removeFilter = (name) => {
+    setFilters(filters.filter((tag) => tag !== name));
+  };
+
+  return { filters, setFilters, addFilter, removeFilter };
 }

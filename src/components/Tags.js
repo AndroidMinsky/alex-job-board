@@ -5,7 +5,7 @@ import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
 import { ReactComponent as RemoveIcon } from "../img/icon-remove.svg";
 
-export default function Tags({ filters, addFilter, setFilters }) {
+export default function Tags({ filters, addFilter, setFilters, removeFilter }) {
   const inputRef = useRef();
 
   useClickAway(inputRef, () => {
@@ -20,10 +20,6 @@ export default function Tags({ filters, addFilter, setFilters }) {
     }
   };
 
-  const removeTag = (tagName) => {
-    setFilters(filters.filter((tag) => tag !== tagName));
-  };
-
   const clearTags = () => {
     setFilters([]);
   };
@@ -36,7 +32,7 @@ export default function Tags({ filters, addFilter, setFilters }) {
             {filters.map((tag) => (
               <Category key={tag}>
                 {tag}
-                <Remove onClick={() => removeTag(tag)}>
+                <Remove onClick={() => removeFilter(tag)}>
                   <RemoveIcon />
                 </Remove>
               </Category>
