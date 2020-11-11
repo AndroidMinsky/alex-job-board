@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import { COLORS } from "../css/colors";
-import { devices } from "../css/devices";
 
 const GlobalStyles = createGlobalStyle`
   html, body, div, span, applet, object, iframe,

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
-import Photosnap from "../img/photosnap.svg";
 
 export default function JobCard({ job, addFilter }) {
   return (
@@ -10,7 +9,7 @@ export default function JobCard({ job, addFilter }) {
       <Card featured={job.featured}>
         <GridContainer>
           <LogoSection>
-            <Logo src={Photosnap} />
+            <Logo src={process.env.PUBLIC_URL + job.logo} />
           </LogoSection>
           <MainInfo>
             <CompanyNameSection>

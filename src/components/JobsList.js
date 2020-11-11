@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import JobCard from "./JobCard";
 import Tags from "./Tags";
 import Spinner from "./Spinner";
 import Error from "./Error";
-import { useQuery } from "react-query";
 import useFilters from "./useFilters";
 
 const fetchJobs = (key, filters) => {

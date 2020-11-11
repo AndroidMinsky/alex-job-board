@@ -3,7 +3,6 @@ import { useClickAway } from "react-use";
 import styled from "styled-components";
 import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
-import { ReactComponent as RemoveIcon } from "../img/icon-remove.svg";
 
 export default function Tags({ filters, addFilter, setFilters, removeFilter }) {
   const inputRef = useRef();
@@ -33,7 +32,10 @@ export default function Tags({ filters, addFilter, setFilters, removeFilter }) {
               <Category key={tag}>
                 {tag}
                 <Remove onClick={() => removeFilter(tag)}>
-                  <RemoveIcon />
+                  <img
+                    src={process.env.PUBLIC_URL + "/img/icon-remove.svg"}
+                    alt="Remove"
+                  ></img>
                 </Remove>
               </Category>
             ))}
