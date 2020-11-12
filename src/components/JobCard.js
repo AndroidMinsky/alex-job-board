@@ -2,15 +2,58 @@ import React from "react";
 import styled from "styled-components";
 import { COLORS } from "../css/colors";
 import { devices } from "../css/devices";
-import Photosnap from "../img/photosnap.svg";
+
+export default function JobCard({ job, addFilter }) {
+  return (
+    <ul style={{ listStyleType: "none" }}>
+      <Card featured={job.featured}>
+        <GridContainer>
+          <LogoSection>
+            <Logo src={process.env.PUBLIC_URL + job.logo} />
+          </LogoSection>
+          <MainInfo>
+            <CompanyNameSection>
+              <CompanyName>{job.company}</CompanyName>
+              <Tags>
+                {job.new && <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>}
+                {job.featured && (
+                  <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>
+                    Featured
+                  </Tag>
+                )}
+              </Tags>
+            </CompanyNameSection>
+            <Title>{job.position}</Title>
+            <MiscInfo>
+              {job.postedAt} <Dot /> {job.contract} <Dot /> {job.location}
+            </MiscInfo>
+            <Divider />
+          </MainInfo>
+          <Categories>
+            <Category>{job.role}</Category>
+            <Category>{job.level}</Category>
+            {job.languages.map((language) => (
+              <Category key={language} onClick={() => addFilter(language)}>
+                {language}
+              </Category>
+            ))}
+            {job.tools.map((tool) => (
+              <Category key={tool}>{tool}</Category>
+            ))}
+          </Categories>
+        </GridContainer>
+      </Card>
+    </ul>
+  );
+}
 
 const Card = styled.li`
   margin: 0 2rem 4rem 2rem;
   background-color: ${COLORS.white};
   border-radius: 5px;
   box-shadow: 5px 15px 30px -15px ${COLORS.darkCyanOpacity};
-  border-left: 5px solid ${COLORS.darkCyan};
-
+  border-left: ${(props) =>
+    props.featured ? `5px solid ${COLORS.darkCyan}` : "5px solid #fff"};
   @media ${devices.tablet} {
     margin: 0 2rem 3rem 2rem;
   }
@@ -150,67 +193,3 @@ const Category = styled.div`
     font-size: 1.5rem;
   }
 `;
-
-export default function JobCard() {
-  return (
-    <ul style={{ listStyleType: "none" }}>
-      <Card>
-        <GridContainer>
-          <LogoSection>
-            <Logo src={Photosnap} />
-          </LogoSection>
-          <MainInfo>
-            <CompanyNameSection>
-              <CompanyName>Photosnap</CompanyName>
-              <Tags>
-                <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
-                <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
-              </Tags>
-            </CompanyNameSection>
-            <Title>Senior Frontend Developer</Title>
-            <MiscInfo>
-              1d ago <Dot /> Full Time <Dot /> USA only
-            </MiscInfo>
-            <Divider />
-          </MainInfo>
-          <Categories>
-            <Category>Frontend</Category>
-            <Category>Senior</Category>
-            <Category>HTML</Category>
-            <Category>CSS</Category>
-            <Category>JavaScript</Category>
-          </Categories>
-        </GridContainer>
-      </Card>
-
-      <Card>
-        <GridContainer>
-          <LogoSection>
-            <Logo src={Photosnap} />
-          </LogoSection>
-          <MainInfo>
-            <CompanyNameSection>
-              <CompanyName>Photosnap </CompanyName>
-              <Tags>
-                <Tag backgroundColor={COLORS.darkCyan}>New!</Tag>
-                <Tag backgroundColor={COLORS.veryDarkGrayishCyan}>Featured</Tag>
-              </Tags>
-            </CompanyNameSection>
-            <Title>Senior Frontend Developer</Title>
-            <MiscInfo>
-              1d ago <Dot /> Full Time <Dot /> USA only
-            </MiscInfo>
-            <Divider />
-          </MainInfo>
-          <Categories>
-            <Category>Frontend</Category>
-            <Category>Senior</Category>
-            <Category>HTML</Category>
-            <Category>CSS</Category>
-            <Category>JavaScript</Category>
-          </Categories>
-        </GridContainer>
-      </Card>
-    </ul>
-  );
-}
