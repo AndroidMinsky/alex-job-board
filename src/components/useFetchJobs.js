@@ -8,9 +8,10 @@ const fetchJobs = (key, filters) => {
 };
 
 export const useFetchJobs = (filters) => {
-  const { isLoading, error, status, data } = useQuery(
+  const { isLoading, error, status, data, isSuccess } = useQuery(
     ["jobs", filters],
-    fetchJobs
+    fetchJobs,
+    { retry: 0 }
   );
-  return { isLoading, error, status, data };
+  return { isLoading, error, status, data, isSuccess };
 };

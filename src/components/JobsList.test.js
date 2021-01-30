@@ -10,7 +10,24 @@ import { useFetchJobs } from "./useFetchJobs";
 
 const server = setupServer(
   rest.get("https://gentle-brook-20502.herokuapp.com/jobs", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ greeting: "hello there" }));
+    return res(
+      ctx.status(200),
+      ctx.json({
+        id: 1,
+        new: true,
+        logo: "./img/photosnap.svg",
+        role: "Frontend",
+        level: "Senior",
+        tools: [],
+        company: "Photosnap",
+        contract: "Full Time",
+        featured: true,
+        location: "USA Only",
+        position: "Senior Frontend Developer",
+        postedAt: "1d ago",
+        languages: ["HTML", "CSS", "JavaScript"],
+      })
+    );
   })
 );
 
@@ -32,5 +49,44 @@ test("should fetch jobs", async () => {
     return result.current.isSuccess;
   });
 
-  expect(result.current.data).toEqual({ greeting: "hello there" });
+  expect(result.current.data).toEqual({
+    id: 1,
+    new: true,
+    logo: "./img/photosnap.svg",
+    role: "Frontend",
+    level: "Senior",
+    tools: [],
+    company: "Photosnap",
+    contract: "Full Time",
+    featured: true,
+    location: "USA Only",
+    position: "Senior Frontend Developer",
+    postedAt: "1d ago",
+    languages: ["HTML", "CSS", "JavaScript"],
+  });
+});
+
+test("should show an error message", async () => {
+  server.use(
+    rest.get(
+      "https://gentle-brook-20502.herokuapp.com/jobs",
+      (req, res, ctx) => {
+        return res(ctx.status(500));
+      }
+    )
+  );
+
+  const queryCache = new QueryCache();
+  const wrapper = ({ children }) => (
+    <ReactQueryCacheProvider queryCache={queryCache}>
+      {children}
+    </ReactQueryCacheProvider>
+  );
+
+  const { waitFor } = renderHook(() => useFetchJobs([]), { wrapper });
+  const { getByText } = render(<JobsList />);
+
+  await waitFor(() => {
+    expect(getByText(/Something went wrong.../i)).toBeInTheDocument();
+  });
 });
